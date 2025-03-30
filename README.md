@@ -1,6 +1,6 @@
 # Team Members
 - Abdimutalipov Zhaxylyk, 23B031056
-- Yerdaly Yeskendir, 23B030408
+- Yerdaly Yeskendir, 23B031285
 - Kydyrbek Yerkezhan, 23B030302
 
 # GameTalk
