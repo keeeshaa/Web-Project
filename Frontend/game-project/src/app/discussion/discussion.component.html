@@ -1,0 +1,35 @@
+<div class="discussion-container">
+    <div class="discussion-header">
+      <h2>{{ currentGame?.title }} Discussion</h2>
+      <div class="active-users">
+        <span class="dot"></span>
+        {{ currentGame?.activePlayers }} users active
+      </div>
+    </div>
+
+    <div class="chat-container">
+      <div class="messages" #messageContainer>
+        <div *ngFor="let message of messages" 
+             class="message" 
+             [class.sent]="message.sent">
+          <div class="message-content">
+            <div class="message-header">
+              <strong>{{ message.user }}</strong>
+              <small>{{ message.time }}</small>
+            </div>
+            <p>{{ message.text }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <input type="text" 
+               [(ngModel)]="newMessage" 
+               placeholder="Share your thoughts..."
+               (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>

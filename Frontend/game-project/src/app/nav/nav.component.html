@@ -1,0 +1,33 @@
+<nav class="nav-container">
+  <a routerLink="/" class="logo">GameTalk</a>
+  
+  <div class="nav-right">
+    <div class="search-container" [class.expanded]="showSearch">
+      <div class="search-box">
+        <input type="text" 
+               #searchInput
+               [(ngModel)]="searchTerm" 
+               (input)="onSearch()"
+               (keyup)="onSearchKeyup($event)"
+               placeholder="Search games..."
+               class="search-input"
+               [class.active]="showSearch">
+        <button class="search-icon" (click)="toggleSearch($event)">
+          <i>🔍</i>
+        </button>
+      </div>
+      
+      <div class="search-results" *ngIf="searchResults.length > 0">
+        <div *ngFor="let game of searchResults" 
+             class="search-result-item"
+             (click)="selectGame(game)">
+          <div class="game-info">
+            <span class="game-title">{{ game.title }}</span>
+            <span class="game-category">{{ getGameCategory(game.id) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a routerLink="/news" class="nav-link">News</a>
+  </div>
+</nav>
