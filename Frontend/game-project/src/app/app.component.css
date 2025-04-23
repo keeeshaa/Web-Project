@@ -1,0 +1,10 @@
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.main-content {
+    padding-top: 64px; /* Height of the navigation bar */
+    min-height: calc(100vh - 64px);
+    background-color: #f5f5f5;
+}

@@ -1,0 +1,60 @@
+<div class="reviews-container">
+  <div class="reviews-header">
+    <h2>{{ game?.title }} Reviews</h2>
+    <div class="rating-summary">
+      <div class="rating-average">
+        <!-- Removed the rating number -->
+        <div class="stars">
+          <span *ngFor="let star of getFullStars(averageRating)" class="star filled">★</span>
+          <span *ngIf="hasPartialStar(averageRating)" class="star partial" 
+                [style.width.%]="getPartialStarWidth(averageRating)">★</span>
+          <span *ngFor="let star of getEmptyStars(averageRating)" class="star">☆</span>
+        </div>
+        <span class="total-reviews">{{ reviews.length }} reviews</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moved review form to a modal-like overlay -->
+  <div class="review-form-overlay" *ngIf="showReviewForm" (click)="showReviewForm = false">
+    <div class="review-form" (click)="$event.stopPropagation()">
+      <h3>Write Your Review</h3>
+      <div class="rating-input">
+        <span *ngFor="let star of [1,2,3,4,5]" 
+              class="star" 
+              [class.filled]="star <= newReview.rating"
+              (click)="newReview.rating = star">★</span>
+      </div>
+      <textarea [(ngModel)]="newReview.text" 
+                placeholder="Share your experience with this game..."
+                rows="4"></textarea>
+      <div class="form-actions">
+        <button class="cancel-btn" (click)="showReviewForm = false">Cancel</button>
+        <button class="submit-btn" (click)="submitReview()">Submit Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Added floating action button for writing review -->
+  <button class="fab-review-btn" (click)="showReviewForm = true">
+    <span class="plus-icon">+</span>
+  </button>
+
+  <div class="reviews-list">
+    <div *ngFor="let review of reviews" class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <strong>{{ review.username }}</strong>
+          <div class="stars">
+            <span *ngFor="let star of getFullStars(review.rating)" class="star filled">★</span>
+            <span *ngIf="hasPartialStar(review.rating)" class="star partial" 
+                  [style.width.%]="getPartialStarWidth(review.rating)">★</span>
+            <span *ngFor="let star of getEmptyStars(review.rating)" class="star">☆</span>
+          </div>
+        </div>
+        <small>{{ review.date }}</small>
+      </div>
+      <p>{{ review.text }}</p>
+    </div>
+  </div>
+</div>

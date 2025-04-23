@@ -1,0 +1,40 @@
+<div class="home-container">
+    <h1>Welcome to GameTalk</h1>
+    <p class="subtitle">Join discussions about your favorite games</p>
+    
+    <div class="categories">
+      <button 
+        *ngFor="let category of categories" 
+        [class.active]="selectedCategory === category"
+        (click)="selectedCategory = category">
+        {{category}}
+      </button>
+    </div>
+
+    <div class="game-grid">
+      <div class="game-card" *ngFor="let game of filteredGames">
+        <div class="game-header">
+          <h3>{{ game.title }}</h3>
+          <div class="header-info">
+            <div class="rating">
+              <div class="stars">
+                <span *ngFor="let star of [1,2,3,4,5]" 
+                      class="star" 
+                      [class.filled]="star <= game.rating">★</span>
+              </div>
+              <span class="review-count">({{ game.reviewCount }})</span>
+            </div>
+            <span class="player-count">{{ game.activePlayers }} active</span>
+          </div>
+        </div>
+        <p>{{ game.description }}</p>
+        <div class="game-footer">
+          <span class="category-label">{{ game.category }}</span>
+          <div class="action-buttons">
+            <a [routerLink]="['/game', game.id, 'reviews']" class="reviews-btn">Reviews</a>
+            <a [routerLink]="['/discussion', game.id]" class="join-btn">Join Discussion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
