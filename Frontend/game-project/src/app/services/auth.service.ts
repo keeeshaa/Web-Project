@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
 import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +57,7 @@ export class AuthService {
     }
   }
 
-  getCurrentUser(): void {
+  getCurrentUser(): Observable<any> {
     return this.apiService.getCurrentUser();
   }
 }
