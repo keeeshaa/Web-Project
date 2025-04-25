@@ -2,19 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
-interface Review {
-  username: string;
-  rating: number;
-  text: string;
-  date: string;
-}
-
-interface Game {
-  id: number;
-  title: string;
-  reviews: Review[];
-}
 
 @Component({
   selector: 'app-game-reviews',
@@ -24,12 +13,10 @@ interface Game {
   styleUrls: ['./game-reviews.component.css']
 })
 export class GameReviewsComponent implements OnInit {
-  game: Game | null = null;
+  game: any = null;
+  reviews: any[] = [];
   showReviewForm = false;
-  newReview = {
-    rating: 0,
-    text: ''
-  };
+  newReview = { rating: 0, text: '' };
 
   getFullStars(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
@@ -1508,7 +1495,7 @@ export class GameReviewsComponent implements OnInit {
         text: 'Great progression and building systems.',
         date: '2024-03-13'
       }
-    ],  
+    ],
     71: [ // Fortnite
       {
         username: 'BattleRoyalePro',
@@ -3111,9 +3098,10 @@ export class GameReviewsComponent implements OnInit {
     ]
   };
 
-  reviews: Review[] = [];
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {}
 
   get averageRating(): number {
     if (!this.reviews.length) return 0;
@@ -3132,28 +3120,47 @@ export class GameReviewsComponent implements OnInit {
         title: this.getGameTitle(gameId), // You would need to implement this method
         reviews: this.reviews
       };
+      this.loadGame(gameId);
+      this.loadReviews(gameId);
+    });
+  }
+  loadGame(gameId: number): void {
+    this.apiService.getGame(gameId).subscribe({
+      next: (game) => {
+        this.game = game;
+      },
+      error: (error) => {
+        console.error('Error loading game:', error);
+      }
     });
   }
 
-  submitReview() {
-    if (this.newReview.rating && this.newReview.text.trim()) {
-      const newReviewObj: Review = {
-        username: 'You',
-        rating: this.newReview.rating,
-        text: this.newReview.text.trim(),
-        date: new Date().toISOString().split('T')[0]
-      };
-      
-      this.reviews.unshift(newReviewObj);
-      if (this.game && this.game.id) {
-        if (!this.gameReviews[this.game.id]) {
-          this.gameReviews[this.game.id] = [];
-        }
-        this.gameReviews[this.game.id].unshift(newReviewObj);
+  loadReviews(gameId: number): void {
+    this.apiService.getGameReviews(gameId).subscribe({
+      next: (reviews) => {
+        this.reviews = reviews;
+      },
+      error: (error) => {
+        console.error('Error loading reviews:', error);
       }
-      
-      this.showReviewForm = false;
-      this.newReview = { rating: 0, text: '' };
+    });
+  }
+  submitReview(): void {
+    if (this.newReview.rating && this.newReview.text.trim()) {
+      this.apiService.createReview(
+        this.game.id,
+        this.newReview.rating,
+        this.newReview.text.trim()
+      ).subscribe({
+        next: (review) => {
+          this.reviews.unshift(review);
+          this.showReviewForm = false;
+          this.newReview = { rating: 0, text: '' };
+        },
+        error: (error) => {
+          console.error('Error submitting review:', error);
+        }
+      });
     }
   }
 
@@ -3195,7 +3202,7 @@ export class GameReviewsComponent implements OnInit {
       28: 'Mass Effect Legendary Edition',
       29: 'Starfield',
       30: 'Diablo IV',
-      
+
       // Strategy Games (31-40)
       31: 'Dota 2',
       32: 'Civilization VI',
@@ -3207,7 +3214,7 @@ export class GameReviewsComponent implements OnInit {
       38: 'Frostpunk',
       39: 'Company of Heroes 3',
       40: 'Into the Breach',
-      
+
       // Simulation Games (41-50)
       41: 'Stardew Valley',
       42: 'Microsoft Flight Simulator',
@@ -3219,7 +3226,7 @@ export class GameReviewsComponent implements OnInit {
       48: 'Two Point Hospital',
       49: 'House Flipper',
       50: 'PowerWash Simulator',
-      
+
       // Sports & Racing Games (51-60)
       51: 'EA Sports FC 24',
       52: 'Forza Horizon 5',
@@ -3231,7 +3238,7 @@ export class GameReviewsComponent implements OnInit {
       58: 'MLB The Show 23',
       59: 'Tony Hawk\'s Pro Skater 1+2',
       60: 'Need for Speed Unbound',
-      
+
       // Indie Games (61-70)
       61: 'Hollow Knight',
       62: 'Celeste',
@@ -3243,7 +3250,7 @@ export class GameReviewsComponent implements OnInit {
       68: 'Vampire Survivors',
       69: 'Cult of the Lamb',
       70: 'Satisfactory',
-      
+
       // Free to Play Games (71-80)
       71: 'Fortnite',
       72: 'League of Legends',
@@ -3255,7 +3262,7 @@ export class GameReviewsComponent implements OnInit {
       78: 'Lost Ark',
       79: 'Valorant',
       80: 'Rocket League',
-      
+
       // MMO Games (81-90)
       81: 'Final Fantasy XIV',
       82: 'World of Warcraft',
@@ -3267,7 +3274,7 @@ export class GameReviewsComponent implements OnInit {
       88: 'RuneScape',
       89: 'Albion Online',
       90: 'EVE Online',
-      
+
       // Casual Games (91-100)
       91: 'Among Us',
       92: 'Fall Guys',
@@ -3279,7 +3286,7 @@ export class GameReviewsComponent implements OnInit {
       98: 'Jackbox Party Pack 9',
       99: 'Goat Simulator 3',
       100: 'Unpacking',
-      
+
       // Horror Games (101-110)
       101: 'Dead Space Remake',
       102: 'Resident Evil Village',
@@ -3291,7 +3298,7 @@ export class GameReviewsComponent implements OnInit {
       108: 'SOMA',
       109: 'Little Nightmares II',
       110: 'Alien: Isolation',
-      
+
       // Puzzle Games (111-120)
       111: 'Portal 2',
       112: 'Baba Is You',
@@ -3303,7 +3310,7 @@ export class GameReviewsComponent implements OnInit {
       118: 'We Were Here Forever',
       119: 'Escape Simulator',
       120: 'A Little to the Left',
-      
+
       // Fighting Games (121-130)
       121: 'Street Fighter 6',
       122: 'Mortal Kombat 1',
@@ -3315,7 +3322,7 @@ export class GameReviewsComponent implements OnInit {
       128: 'Nickelodeon All-Star Brawl 2',
       129: 'Brawlhalla',
       130: 'Skullgirls 2nd Encore',
-      
+
       // Battle Royale Games (131-140)
       131: 'PUBG: BATTLEGROUNDS',
       132: 'Fortnite',
@@ -3327,7 +3334,7 @@ export class GameReviewsComponent implements OnInit {
       138: 'Super People',
       139: 'Rumbleverse',
       140: 'Spellbreak',
-      
+
       // Visual Novel Games (141-150)
       141: 'Steins;Gate',
       142: 'Danganronpa V3',
