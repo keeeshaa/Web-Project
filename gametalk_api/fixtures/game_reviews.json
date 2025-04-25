@@ -1,0 +1,156 @@
+[
+  {
+    "model": "api.review",
+    "pk": 1,
+    "fields": {
+      "game": 1,
+      "user": 2,
+      "rating": 5,
+      "text": "Source 2 engine is a game-changer. The graphics and physics are incredible!",
+      "date": "2024-03-15",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 2,
+    "fields": {
+      "game": 1,
+      "user": 3,
+      "rating": 4,
+      "text": "Great improvements over CS:GO, but still some minor bugs to fix.",
+      "date": "2024-03-14",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 3,
+    "fields": {
+      "game": 1,
+      "user": 2,
+      "rating": 5,
+      "text": "The new smoke mechanics and improved hit registration make this the best CS yet.",
+      "date": "2024-03-13",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 4,
+    "fields": {
+      "game": 2,
+      "user": 3,
+      "rating": 4,
+      "text": "Solid multiplayer experience with great gunplay.",
+      "date": "2024-03-15",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 5,
+    "fields": {
+      "game": 2,
+      "user": 2,
+      "rating": 4,
+      "text": "Campaign is intense but a bit short. Multiplayer makes up for it.",
+      "date": "2024-03-14",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 6,
+    "fields": {
+      "game": 2,
+      "user": 1,
+      "rating": 5,
+      "text": "Best CoD in years. Maps are well-designed.",
+      "date": "2024-03-13",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 7,
+    "fields": {
+      "game": 2,
+      "user": 2,
+      "rating": 4,
+      "text": "Fun but can be overwhelming for new players.",
+      "date": "2024-03-12",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 8,
+    "fields": {
+      "game": 3,
+      "user": 1,
+      "rating": 5,
+      "text": "The perfect blend of action, strategy, and metal music!",
+      "date": "2024-03-15",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 9,
+    "fields": {
+      "game": 3,
+      "user": 2,
+      "rating": 5,
+      "text": "Combat is like a violent ballet. Absolutely stunning.",
+      "date": "2024-03-14",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 10,
+    "fields": {
+      "game": 3,
+      "user": 2,
+      "rating": 5,
+      "text": "Movement mechanics are incredible. So much depth.",
+      "date": "2024-03-13",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  },
+  {
+    "model": "api.review",
+    "pk": 11,
+    "fields": {
+      "game": 1,
+      "user": 1,
+      "rating": 5,
+      "text": "The combat system is deep and rewarding. SSStylish!",
+      "date": "2024-03-15",
+      "created_at": "2024-03-15T00:00:00Z",
+    "updated_at": "2024-03-15T00:00:00Z"
+
+    }
+  }
+  ]
